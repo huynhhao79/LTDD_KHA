@@ -27,9 +27,9 @@ void initState() {
     ),
     Container(
       padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
-      child: TextField(
+      child: const TextField(
         obscureText: true,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           icon: Icon(Icons.account_box),
           border: OutlineInputBorder(),
           labelText: 'Tên đăng nhập',
@@ -38,9 +38,9 @@ void initState() {
     ),
     Container(
       padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
-      child: TextField(
+      child: const TextField(
         obscureText: true,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           icon: Icon(Icons.email),
           border: OutlineInputBorder(),
           labelText: 'Email',
@@ -49,9 +49,9 @@ void initState() {
     ),
     Container(
       padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
-      child: TextField(
+      child: const TextField(
         obscureText: true,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           icon: Icon(Icons.key),
           border: OutlineInputBorder(),
           labelText: 'Mật khẩu',
@@ -60,9 +60,9 @@ void initState() {
     ),
     Container(
       padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
-      child: TextField(
+      child: const TextField(
         obscureText: true,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           icon: Icon(Icons.key),
           border: OutlineInputBorder(),
           labelText: 'Xác nhận mật khẩu',
@@ -71,9 +71,9 @@ void initState() {
     ),
     Container(
       padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
-      child: TextField(
+      child: const TextField(
         obscureText: true,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           icon: Icon(Icons.key),
           border: OutlineInputBorder(),
           labelText: 'OTP',
