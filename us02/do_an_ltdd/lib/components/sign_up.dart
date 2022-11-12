@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phan4_bai1/components/login.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -10,15 +11,18 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+    return Scaffold(
+        body: Column(children: [
+      SizedBox(height: 50.0),
       const Text(
         "ĐĂNG KÍ TÀI KHOẢN",
         style: TextStyle(
-          color: Colors.white,
+          color: Colors.blue,
+          fontWeight: FontWeight.bold,
           fontSize: 40,
         ),
       ),
-      Container(
+      Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
         child: const TextField(
           obscureText: true,
@@ -29,7 +33,7 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
       ),
-      Container(
+      Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
         child: const TextField(
           obscureText: true,
@@ -40,7 +44,7 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
       ),
-      Container(
+      Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
         child: const TextField(
           obscureText: true,
@@ -51,7 +55,7 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
       ),
-      Container(
+      Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
         child: const TextField(
           obscureText: true,
@@ -62,7 +66,7 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
       ),
-      Container(
+      Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
         child: const TextField(
           obscureText: true,
@@ -78,26 +82,19 @@ class _SignUpState extends State<SignUp> {
         children: <Widget>[
           Container(
               height: 50,
-              padding: const EdgeInsets.fromLTRB(0, 10, 30, 10),
-              child: ElevatedButton(
-                child: const Text('Trở lại'),
-                onPressed: () {},
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.red)),
-              )),
-          Container(
-              height: 50,
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: ElevatedButton(
                 child: const Text('Xác nhận'),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Login()));
+                },
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.red)),
               )),
         ],
       )
-    ]);
+    ]));
   }
 }
