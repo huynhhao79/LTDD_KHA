@@ -24,7 +24,7 @@ class _MenuStatr extends State<Menu> {
               color: Colors.blue,
             ),
             child: Text(
-              'ABC XYZ',
+              'Logo trang chủ ',
               style: TextStyle(color: Colors.white),
             ),
           ),
