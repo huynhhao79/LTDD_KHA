@@ -1,8 +1,24 @@
 
 import 'package:flutter/material.dart';
 
-Widget Setting_Options() {
-  return Center(
+class Setting_Options extends StatefulWidget {
+  const Setting_Options({super.key});
+
+  @override
+  State<Setting_Options> createState() => _Setting_OptionsState();
+}
+
+class _Setting_OptionsState extends State<Setting_Options> {
+
+@override
+void initState() {
+  super.initState();
+  // Implement some initialization operations here.
+}
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
     child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
       const Text(
         "Tùy chọn cài đặt",
@@ -16,119 +32,121 @@ Widget Setting_Options() {
           height: 50,
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: ElevatedButton(
+            onPressed: () {
+            },
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.blueAccent)),
             child: Row(
-              children: [
+              children: const [
                 Icon(Icons.store),
-                const Text('Thường ngày'),
+                Text('Thường ngày'),
               ],
             ),
-            onPressed: () {
-            },
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.blueAccent)),
           )),
       Container(
           width: 200,
           height: 50,
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: ElevatedButton(
-            child: Row(
-              children: [
-                const Icon(Icons.music_note),
-                const Text('Âm thanh'),
-              ],
-            ),
             onPressed: () {
             },
             style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Colors.blueAccent)),
+            child: Row(
+              children: const [
+                Icon(Icons.music_note),
+                Text('Âm thanh'),
+              ],
+            ),
           )),
       Container(
           width: 200,
           height: 50,
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: ElevatedButton(
+            onPressed: () {
+            },
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.blueAccent)),
             child: Row(
-              children: [
+              children: const [
                 Icon(Icons.store),
-                const Text('Chợ'),
+                Text('Chợ'),
               ],
             ),
-            onPressed: () {
-            },
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.blueAccent)),
           )),
       Container(
           width: 200,
           height: 50,
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: ElevatedButton(
+            onPressed: () {
+            },
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.blueAccent)),
             child: Row(
-              children: [
+              children: const [
                 Icon(Icons.thumb_up),
-                const Text('Đánh giá'),
+                Text('Đánh giá'),
               ],
             ),
-            onPressed: () {
-            },
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.blueAccent)),
           )),
       Container(
           width: 200,
           height: 50,
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: ElevatedButton(
+            onPressed: () {
+            },
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.blueAccent)),
             child: Row(
-              children: [
+              children: const [
                 Icon(Icons.mode_comment),
                 Text(
                   'Phản hồi',
                 ),
               ],
             ),
-            onPressed: () {
-            },
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.blueAccent)),
           )),
       Container(
           width: 200,
           height: 50,
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: ElevatedButton(
+            onPressed: () {
+            },
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.blueAccent)),
             child: Row(
-              children: [
-                const Text('Điều khoản dịch vụ'),
+              children: const [
+                Text('Điều khoản dịch vụ'),
               ],
             ),
-            onPressed: () {
-            },
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.blueAccent)),
           )),
       Container(
           width: 200,
           height: 50,
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: ElevatedButton(
-            child: Text(
+            onPressed: () {
+            },
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.blueAccent)),
+            child: const Text(
               'Chính sách quyền riêng tư',
               maxLines: 3,
             ),
-            onPressed: () {
-            },
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.blueAccent)),
           )),
     ]),
   );
+  }
 }
+
