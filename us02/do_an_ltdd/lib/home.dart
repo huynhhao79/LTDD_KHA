@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               child: Choose_Mode(),
             ),
             Container(
-              child: Text('Trang cá nhân chưa code '),
+              child: Text('Trang cá nhân  '),
             ),
             Container(
               child: Battle_Sceen(),
