@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:phan4_bai1/components/cauhoi.dart';
+import 'package:phan4_bai1/components/doikhan.dart';
 
 class Choose_Mode extends StatefulWidget {
   const Choose_Mode({super.key});
@@ -71,7 +72,12 @@ class _Choose_ModeState extends State<Choose_Mode> {
                               ),
                             ],
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const doikhan()));
+                          },
                           style: ButtonStyle(
                               backgroundColor:
                                   MaterialStateProperty.all<Color>(Colors.red)),
