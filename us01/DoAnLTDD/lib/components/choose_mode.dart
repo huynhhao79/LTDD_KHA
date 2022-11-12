@@ -10,12 +10,12 @@ return Center(
       width: 300,
       height: 250,
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 255, 255, 255),
+        color: const Color.fromARGB(255, 255, 255, 255),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
         children: [
-          Text("Chọn chế độ chơi:",
+          const Text("Chọn chế độ chơi:",
           style: TextStyle(
             fontSize: 20,
             fontStyle: FontStyle.normal,
@@ -24,6 +24,11 @@ return Center(
           Container(
               padding: const EdgeInsets.fromLTRB(50, 40, 50, 25),
               child: ElevatedButton(
+                onPressed: () {
+                },
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blueAccent)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -33,11 +38,6 @@ return Center(
                     ),
                   ],
                 ),
-                onPressed: () {
-                },
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blueAccent)),
               )),
           Container(
               padding: const EdgeInsets.fromLTRB(50, 25, 50, 50),
