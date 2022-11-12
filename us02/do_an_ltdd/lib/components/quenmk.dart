@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phan4_bai1/components/login.dart';
 
 class quenmk extends StatefulWidget {
   const quenmk({super.key});
@@ -9,22 +10,16 @@ class quenmk extends StatefulWidget {
 
 class _quenmkState extends State<quenmk> {
   @override
-  void initState() {
-    super.initState();
-    // Implement some initialization operations here.
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+    return Scaffold(
+        body: Column(children: [
+      SizedBox(height: 50.0),
       const Text(
-        "Quên mật khẩu ",
+        "QUÊN MẬT KHẨU",
         style: TextStyle(
-          color: Colors.white,
-          fontSize: 40,
-        ),
+            color: Colors.blue, fontSize: 40, fontWeight: FontWeight.bold),
       ),
-      Container(
+      Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
         child: const TextField(
           obscureText: true,
@@ -35,7 +30,7 @@ class _quenmkState extends State<quenmk> {
           ),
         ),
       ),
-      Container(
+      Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
         child: const TextField(
           obscureText: true,
@@ -46,7 +41,7 @@ class _quenmkState extends State<quenmk> {
           ),
         ),
       ),
-      Container(
+      Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
         child: const TextField(
           obscureText: true,
@@ -57,7 +52,7 @@ class _quenmkState extends State<quenmk> {
           ),
         ),
       ),
-      Container(
+      Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
         child: const TextField(
           obscureText: true,
@@ -68,7 +63,7 @@ class _quenmkState extends State<quenmk> {
           ),
         ),
       ),
-      Container(
+      Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
         child: const TextField(
           obscureText: true,
@@ -84,26 +79,19 @@ class _quenmkState extends State<quenmk> {
         children: <Widget>[
           Container(
               height: 50,
-              padding: const EdgeInsets.fromLTRB(0, 10, 30, 10),
-              child: ElevatedButton(
-                child: const Text('Trở lại'),
-                onPressed: () {},
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.red)),
-              )),
-          Container(
-              height: 50,
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: ElevatedButton(
                 child: const Text('Xác nhận'),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Login()));
+                },
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.red)),
               )),
         ],
       )
-    ]);
+    ]));
   }
 }
