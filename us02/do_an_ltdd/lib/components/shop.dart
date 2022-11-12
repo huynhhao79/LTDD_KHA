@@ -14,36 +14,6 @@ class _shopState extends State<shop> {
       backgroundColor: const Color(0xFF7A9BEE),
       body: Column(
         children: <Widget>[
-          // Padding(
-          //   padding: EdgeInsets.only(top: 0.0, left: 10.0),
-          //   child: Row(
-          //     children: <Widget>[
-          //       IconButton(
-          //         onPressed: () {
-          //           Navigator.of(context).pop();
-          //         },
-          //         icon: Icon(Icons.arrow_back_ios),
-          //         color: Colors.white,
-          //       ),
-          //       Padding(
-          //         padding: EdgeInsets.only(top: 0.0, left: 300.0),
-          //         child: Container(
-          //             child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.end,
-          //           children: <Widget>[
-          //             IconButton(
-          //               onPressed: () {
-          //                 Navigator.of(context).pop();
-          //               },
-          //               icon: Icon(Icons.menu),
-          //               color: Colors.white,
-          //             ),
-          //           ],
-          //         )),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           Padding(
               padding: EdgeInsets.only(top: 15.0, left: 10.0),
               child: Row(
