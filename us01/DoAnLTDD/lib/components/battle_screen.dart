@@ -15,22 +15,22 @@ Widget Battle_Sceen() {
     Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.star,
           color: Colors.yellow,
           size: 50,
         ),
-        Icon(
+        const Icon(
           Icons.star,
           color: Colors.yellow,
           size: 50,
         ),
-        Icon(
+        const Icon(
           Icons.star,
           color: Colors.yellow,
           size: 50,
         ),
-        Icon(
+        const Icon(
           Icons.star,
           size: 50,
         ),
