@@ -1,5 +1,8 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:phan4_bai1/components/home_page.dart';
+import 'package:phan4_bai1/components/quenmk.dart';
 import 'package:phan4_bai1/components/sign_up.dart';
 import 'package:phan4_bai1/home.dart';
 
@@ -54,7 +57,7 @@ class _LoginState extends State<Login> {
               child: const Text('Đăng nhập'),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const homeapp()));
+                    MaterialPageRoute(builder: (context) => homeapp()));
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
@@ -83,9 +86,11 @@ class _LoginState extends State<Login> {
                 ),
               ),
             )),
-       
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => quenmk()));
+          },
           child: const Text(
             'Quên mật khẩu',
             style: TextStyle(fontSize: 15, color: Colors.red),
