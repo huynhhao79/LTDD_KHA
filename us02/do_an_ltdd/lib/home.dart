@@ -45,9 +45,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         initialIndex: 0,
         length: 4,
         child: Scaffold(
-          appBar: AppBar(
-            title: Text(widget.title),
-          ),
+          // appBar:
+          //  AppBar(
+          //   title: Text(widget.title),
+          // ),
           drawer: const Menu(),
           bottomNavigationBar: Container(
             color: Colors.white,
