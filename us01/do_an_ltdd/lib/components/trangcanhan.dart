@@ -280,7 +280,6 @@ class _trangcanhanState extends State<trangcanhan> {
           ),
 
           ////////nut dang xuat
-          ///////
           Padding(
             padding: EdgeInsets.only(top: 30, left: 20),
             child: ElevatedButton(
