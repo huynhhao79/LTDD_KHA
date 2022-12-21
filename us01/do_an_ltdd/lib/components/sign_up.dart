@@ -163,7 +163,7 @@ class _SignUpState extends State<SignUp> {
                     child: ElevatedButton(
                       child: const Text('Xác nhận'),
                       onPressed: () {
-                        SignUp();
+                      
                       },
                       style: ButtonStyle(
                           backgroundColor:
