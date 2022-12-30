@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class doikhan extends StatefulWidget {
@@ -8,20 +10,49 @@ class doikhan extends StatefulWidget {
 }
 
 class _doikhanState extends State<doikhan> {
-  @override
+  bool valuefirst = false;
+  bool valuesecond = false;
+  bool val1 = false;
+  final _topicController = TextEditingController();
+  late Timer _timer;
+  int _start = 10;
+
+  void onEnd() {
+    print('onEnd');
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF7A9BEE),
+      backgroundColor: Colors.blueGrey,
       body: Column(
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(top: 15.0, left: 0.0),
             child: Row(
               children: <Widget>[
-                Image(
-                  image: AssetImage('assets/1.png'),
-                ),
-                Text('Nguyễn Văn A'),
+                Stack(children: [
+                  Container(
+                    height: 80,
+                    width: 80,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/khung.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15, top: 18),
+                    child: Image(
+                      image: AssetImage('assets/1.png'),
+                    ),
+                  )
+                ]),
+                Text('Nguyễn Văn A',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    )),
                 // Column(
                 //   children: [
                 //     Row(
@@ -34,15 +65,34 @@ class _doikhanState extends State<doikhan> {
                 //   ],
                 // ),
                 Padding(
-                  padding: EdgeInsets.only(top: 0.0, left: 140.0),
+                  padding: EdgeInsets.only(top: 0.0, left: 75.0),
                   child: Container(
                       child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      Text('nguyễn thông'),
-                      Image(
-                        image: AssetImage('assets/1.png'),
-                      ),
+                      Text('nguyễn thông',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      Stack(children: [
+                        Container(
+                          height: 80,
+                          width: 80,
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('assets/khung.png'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 15, top: 18),
+                          child: Image(
+                            image: AssetImage('assets/1.png'),
+                          ),
+                        )
+                      ]),
                     ],
                   )),
                 ),
@@ -58,12 +108,29 @@ class _doikhanState extends State<doikhan> {
             ]),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 0.0, left: 175.0),
-            child: Row(children: [Text('Tiền cược')]),
+            padding: EdgeInsets.only(top: 0.0, left: 160.0),
+            child: Row(children: [
+              Text('Tiền cược: ',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  )),
+              Text('100',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  )),
+            ]),
           ),
           Padding(
             padding: EdgeInsets.only(top: 5, left: 185.0),
-            child: Row(children: [Text('00:30')]),
+            child: Row(children: [
+              // Text('00:30',
+              //     style: TextStyle(
+              //       color: Colors.black,
+              //       fontWeight: FontWeight.bold,
+              //     )),
+            ]),
           ),
           Padding(
               padding: EdgeInsets.only(top: 15.0, left: 10.0),
@@ -71,15 +138,19 @@ class _doikhanState extends State<doikhan> {
                 children: [],
               )),
           Padding(
-            padding: EdgeInsets.only(left: 165.0),
+            padding: EdgeInsets.only(left: 100.0),
             child: Row(
               children: <Widget>[
-                Text('Chủ đề',
+                Text('Chủ đề : ',
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 25.0)),
-                SizedBox(width: 10.0),
+                Text('Văn học',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25.0)),
               ],
             ),
           ),
@@ -94,6 +165,7 @@ class _doikhanState extends State<doikhan> {
                   topRight: Radius.circular(20.0),
                   bottomRight: Radius.circular(20.0),
                   bottomLeft: Radius.circular(20.0)),
+              border: Border.all(width: 2, color: Colors.black),
             ),
             child: ListView(
               primary: false,

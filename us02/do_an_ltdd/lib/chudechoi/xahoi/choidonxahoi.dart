@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -30,7 +31,142 @@ class choidonxahoi extends StatefulWidget {
 }
 
 class _choidonState extends State<choidonxahoi> {
-  bool isChecked = true;
+  String name = '';
+  String email = '';
+  int mony = 0;
+  String? image = '';
+  Future _getdata() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((snapshot) async {
+      if (snapshot.exists) {
+        setState(() {
+          name = snapshot.data()!["name"];
+          email = snapshot.data()!["email"];
+          mony = snapshot.data()!["mony"];
+          image = snapshot.data()!["photoUrl"];
+        });
+      }
+    });
+  }
+
+  int den = 0;
+  int tim = 0;
+  Future _getshop() async {
+    await FirebaseFirestore.instance
+        .collection('shop')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((snapshot) async {
+      if (snapshot.exists) {
+        setState(() {
+          // name = snapshot.data()!["name"];
+          den = snapshot.data()!["den"];
+          tim = snapshot.data()!["tim"];
+        });
+      }
+    });
+  }
+
+  int man1 = 0;
+  int man2 = 0;
+  int man3 = 0;
+  int man4 = 0;
+  int man5 = 0;
+  int man6 = 0;
+  int man7 = 0;
+  int man8 = 0;
+  int man9 = 0;
+  int man10 = 0;
+  Future _getdatadeim() async {
+    await FirebaseFirestore.instance
+        .collection('vatly')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((snapshot) async {
+      if (snapshot.exists) {
+        setState(() {
+          man1 = snapshot.data()!["man1"];
+          man2 = snapshot.data()!["man2"];
+          man3 = snapshot.data()!["man3"];
+          man4 = snapshot.data()!["man4"];
+          man5 = snapshot.data()!["man5"];
+          man6 = snapshot.data()!["man6"];
+          man7 = snapshot.data()!["man7"];
+          man8 = snapshot.data()!["man8"];
+          man9 = snapshot.data()!["man9"];
+          man10 = snapshot.data()!["man10"];
+        });
+      }
+    });
+  }
+
+  Future _updatediem() async {
+    await FirebaseFirestore.instance
+        .collection('vatly')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((snapshot) async {
+      if (snapshot.exists) {
+        setState(() {
+          man1 = snapshot.data()!["man1"];
+          man2 = snapshot.data()!["man2"];
+          man3 = snapshot.data()!["man3"];
+          man4 = snapshot.data()!["man4"];
+          man5 = snapshot.data()!["man5"];
+          man6 = snapshot.data()!["man6"];
+          man7 = snapshot.data()!["man7"];
+          man8 = snapshot.data()!["man8"];
+          man9 = snapshot.data()!["man9"];
+          man10 = snapshot.data()!["man10"];
+        });
+      }
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({
+        'diemvatly':
+            man1 + man2 + man3 + man4 + man5 + man6 + man7 + man8 + man9 + man10
+      });
+    });
+  }
+
+  int diem1 = 0;
+  int diem2 = 0;
+  int diem3 = 0;
+  Future _updatediemtong() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((snapshot) async {
+      if (snapshot.exists) {
+        setState(() {
+          diem1 = snapshot.data()!["diemhacknao"];
+          diem2 = snapshot.data()!["diemtoan"];
+          diem3 = snapshot.data()!["diemvatly"];
+        });
+      }
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({'diemtong': diem1 + diem2 + diem3});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _getdata();
+    _getshop();
+    _getdatadeim();
+    _updatediem();
+    _updatediemtong();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +214,7 @@ class _choidonState extends State<choidonxahoi> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 5.0, top: 5),
-                        child: Text('220'),
+                        child: Text(mony.toString()),
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 5.0),
@@ -115,16 +251,12 @@ class _choidonState extends State<choidonxahoi> {
                       Padding(
                         padding: EdgeInsets.only(left: 0, top: 0),
                         child: Image(
-                          image: AssetImage('assets/tim.png'),
+                          image: AssetImage('assets/den.png'),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Text('1'),
-                      ),
-                      Padding(
                         padding: EdgeInsets.only(left: 5.0, top: 5),
-                        child: Text('03:20'),
+                        child: Text(den.toString()),
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 0.0),
@@ -220,7 +352,16 @@ class _choidonState extends State<choidonxahoi> {
                                     ),
                                     child: Column(
                                       children: [
-                                        Text('Màn 1'),
+                                        Text('Màn 1',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
+                                        Text('điểm: ' + man1.toString() + '/5',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
                                       ],
                                     ),
                                   ),
@@ -233,13 +374,15 @@ class _choidonState extends State<choidonxahoi> {
                               //man1
                               InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => xahoi2(
-                                                totalTimer: totalTime,
-                                                questions: questions,
-                                              )));
+                                  if (man2 >= 3) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => xahoi2(
+                                                  totalTimer: totalTime,
+                                                  questions: questions,
+                                                )));
+                                  }
                                 },
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 0, top: 0),
@@ -262,7 +405,16 @@ class _choidonState extends State<choidonxahoi> {
                                     ),
                                     child: Column(
                                       children: [
-                                        Text('Màn 3'),
+                                        Text('Màn 3',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
+                                        Text('điểm: ' + man3.toString() + '/5',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
                                       ],
                                     ),
                                   ),
@@ -271,18 +423,20 @@ class _choidonState extends State<choidonxahoi> {
                               SizedBox(
                                 height: 20,
                               ),
-                              //man  3 
+                              //man  3
                               //  Text('số câu hỏi : ${questions.length - 11}'),
 
                               InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => xahoi4(
-                                                totalTimer: totalTime,
-                                                questions: questions,
-                                              )));
+                                  if (man4 >= 3) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => xahoi4(
+                                                  totalTimer: totalTime,
+                                                  questions: questions,
+                                                )));
+                                  }
                                 },
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 0, top: 0),
@@ -305,7 +459,16 @@ class _choidonState extends State<choidonxahoi> {
                                     ),
                                     child: Column(
                                       children: [
-                                        Text('Màn 5'),
+                                        Text('Màn 5',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
+                                        Text('điểm: ' + man5.toString() + '/5',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
                                       ],
                                     ),
                                   ),
@@ -318,13 +481,15 @@ class _choidonState extends State<choidonxahoi> {
                               //man 5
                               InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => xahoi6(
-                                                totalTimer: totalTime,
-                                                questions: questions,
-                                              )));
+                                  if (man6 >= 3) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => xahoi6(
+                                                  totalTimer: totalTime,
+                                                  questions: questions,
+                                                )));
+                                  }
                                 },
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 0, top: 0),
@@ -347,7 +512,16 @@ class _choidonState extends State<choidonxahoi> {
                                     ),
                                     child: Column(
                                       children: [
-                                        Text('Màn 7'),
+                                        Text('Màn 7',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
+                                        Text('điểm: ' + man7.toString() + '/5',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
                                       ],
                                     ),
                                   ),
@@ -357,16 +531,18 @@ class _choidonState extends State<choidonxahoi> {
                                 height: 20,
                               ),
                               //  Text('số câu hỏi : ${questions.length - 11}'),
-                            //man 7
+                              //man 7
                               InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => xahoi8(
-                                                totalTimer: totalTime,
-                                                questions: questions,
-                                              )));
+                                  if (man9 >= 3) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => xahoi8(
+                                                  totalTimer: totalTime,
+                                                  questions: questions,
+                                                )));
+                                  }
                                 },
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 0, top: 0),
@@ -389,7 +565,16 @@ class _choidonState extends State<choidonxahoi> {
                                     ),
                                     child: Column(
                                       children: [
-                                        Text('Màn 9'),
+                                        Text('Màn 9',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
+                                        Text('điểm: ' + man9.toString() + '/5',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
                                       ],
                                     ),
                                   ),
@@ -400,20 +585,22 @@ class _choidonState extends State<choidonxahoi> {
                           SizedBox(
                             height: 20,
                           ),
-                          // man 9 
+                          // man 9
                           Padding(
                             padding: const EdgeInsets.only(left: 100),
                             child: Column(
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => xahoi1(
-                                                  totalTimer: totalTime,
-                                                  questions: questions,
-                                                )));
+                                    if (man1 >= 3) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => xahoi1(
+                                                    totalTimer: totalTime,
+                                                    questions: questions,
+                                                  )));
+                                    }
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 0, top: 0),
@@ -437,7 +624,17 @@ class _choidonState extends State<choidonxahoi> {
                                       ),
                                       child: Column(
                                         children: [
-                                          Text('Màn 2'),
+                                          Text('Màn 2',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
+                                          Text(
+                                              'điểm: ' + man2.toString() + '/5',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
                                         ],
                                       ),
                                     ),
@@ -446,16 +643,18 @@ class _choidonState extends State<choidonxahoi> {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                ///////////man 2 
+                                ///////////man 2
                                 InkWell(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => xahoi3(
-                                                  totalTimer: totalTime,
-                                                  questions: questions,
-                                                )));
+                                    if (man3 >= 3) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => xahoi3(
+                                                    totalTimer: totalTime,
+                                                    questions: questions,
+                                                  )));
+                                    }
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 0, top: 0),
@@ -479,7 +678,17 @@ class _choidonState extends State<choidonxahoi> {
                                       ),
                                       child: Column(
                                         children: [
-                                          Text('Màn 4'),
+                                          Text('Màn 4',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
+                                          Text(
+                                              'điểm: ' + man4.toString() + '/5',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
                                         ],
                                       ),
                                     ),
@@ -491,13 +700,15 @@ class _choidonState extends State<choidonxahoi> {
                                 ///////////////////man 4
                                 InkWell(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => xahoi5(
-                                                  totalTimer: totalTime,
-                                                  questions: questions,
-                                                )));
+                                    if (man5 >= 3) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => xahoi5(
+                                                    totalTimer: totalTime,
+                                                    questions: questions,
+                                                  )));
+                                    }
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 0, top: 0),
@@ -521,7 +732,17 @@ class _choidonState extends State<choidonxahoi> {
                                       ),
                                       child: Column(
                                         children: [
-                                          Text('Màn 6'),
+                                          Text('Màn 6',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
+                                          Text(
+                                              'điểm: ' + man6.toString() + '/5',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
                                         ],
                                       ),
                                     ),
@@ -530,16 +751,18 @@ class _choidonState extends State<choidonxahoi> {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                ///////////man 6 
+                                ///////////man 6
                                 InkWell(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => xahoi7(
-                                                  totalTimer: totalTime,
-                                                  questions: questions,
-                                                )));
+                                    if (man7 >= 3) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => xahoi7(
+                                                    totalTimer: totalTime,
+                                                    questions: questions,
+                                                  )));
+                                    }
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 0, top: 0),
@@ -563,7 +786,17 @@ class _choidonState extends State<choidonxahoi> {
                                       ),
                                       child: Column(
                                         children: [
-                                          Text('Màn 8'),
+                                          Text('Màn 8',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
+                                          Text(
+                                              'điểm: ' + man8.toString() + '/5',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
                                         ],
                                       ),
                                     ),
@@ -572,16 +805,18 @@ class _choidonState extends State<choidonxahoi> {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                ////////////////man 8 
+                                ////////////////man 8
                                 InkWell(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => xahoi9(
-                                                  totalTimer: totalTime,
-                                                  questions: questions,
-                                                )));
+                                    if (man9 >= 3) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => xahoi9(
+                                                    totalTimer: totalTime,
+                                                    questions: questions,
+                                                  )));
+                                    }
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 0, top: 0),
@@ -605,13 +840,24 @@ class _choidonState extends State<choidonxahoi> {
                                       ),
                                       child: Column(
                                         children: [
-                                          Text('Màn 10'),
+                                          Text('Màn 10',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
+                                          Text(
+                                              'điểm: ' +
+                                                  man10.toString() +
+                                                  '/5',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
                                         ],
                                       ),
                                     ),
                                   ),
                                 ),
-
 
                                 ///////////////man 10000000000000000
                               ],

@@ -15,9 +15,6 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text('Cài Đặt')),
-        drawer: const Menu(),
-        body: Setting_Options());
+    return Scaffold(body: Setting_Options());
   }
 }

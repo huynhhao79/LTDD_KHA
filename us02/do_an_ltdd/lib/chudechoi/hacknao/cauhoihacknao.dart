@@ -37,6 +37,7 @@ class _cauhoihacknaoState extends State<cauhoihacknao> {
       });
       if (crtimer == 0) {
         _timer.cancel();
+        return pushResultScreen(context);
       }
     });
   }
@@ -72,14 +73,14 @@ class _cauhoihacknaoState extends State<cauhoihacknao> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
-              height: 40,
+              height: 20,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
                     LinearProgressIndicator(
-                      color: Colors.amber,
+                      color: Colors.blue,
                       value: crtimer / widget.totalTimer,
                     ),
                     Center(

@@ -3,11 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:phan4_bai1/components/trangcanhan/trangcanhan.dart';
+import 'package:phan4_bai1/home.dart';
 
 class editprofile extends StatefulWidget {
-  const editprofile({Key? key, required this.emaill, required this.nameee});
-  final String emaill;
-  final String nameee;
+  const editprofile({
+    Key? key,
+  });
+
   @override
   State<editprofile> createState() => _editprofileState();
 }
@@ -15,47 +18,36 @@ class editprofile extends StatefulWidget {
 class _editprofileState extends State<editprofile> {
   String? name;
   String? email;
-
+  TextEditingController _email = TextEditingController();
+  final _name = TextEditingController();
   @override
   void initState() {
     super.initState();
-    
-    email = widget.emaill;
-    name = widget.nameee;
+    _getdata();
+    // _updata();
   }
 
-//   Future<void> updatatt() async {
-//     final authUser = FirebaseAuth.instance.currentUser;
+  Future _getdata() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((snapshot) async {
+      if (snapshot.exists) {
+        setState(() {
+          name = snapshot.data()!["name"];
+          email = snapshot.data()!["email"];
+        });
+      }
+    });
+  }
 
-//     if (authUser == null) return;
-
-//     final userRef =
-//         FirebaseFirestore.instance.collection('users').doc(authUser.uid);
-
-//     final userDoc = await userRef.get();
-//     userRef.update({'name': name});
-//     // if (userDoc.exists) {
-//     //   final user = userDoc.data();
-//     //   if (user == null) {
-//     //     return;
-//     //   }
-
-//     //   final editmail = user['email'];
-
-//     //   if (editmail != name) {
-//     //     return;
-//     //   }
-//     //   userRef.update({'score': name});
-//     //   return;
-//     // }
-
-//     userRef.set({
-//       'email': authUser.email,
-//       'photoUrl': authUser.photoURL,
-// //'score': widget.score,
-//       'name': authUser.displayName,
-//     });
-//   }
+  Future _updata() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({'name': _name.text.trim()});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,9 +70,10 @@ class _editprofileState extends State<editprofile> {
           Padding(
             padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
             child: TextFormField(
-              initialValue: email,
+              //   initialValue: email,
+              controller: _email,
               decoration: InputDecoration(
-                labelText: 'Email',
+                labelText: '$email',
                 // icon: Icon(Icons.account_box),
                 border: OutlineInputBorder(),
               ),
@@ -89,14 +82,18 @@ class _editprofileState extends State<editprofile> {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
             child: TextFormField(
-              initialValue: name,
+              //  initialValue: name,
+              controller: _name,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(), labelText: 'Tên'),
+                border: OutlineInputBorder(),
+                labelText: '$name',
+              ),
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.done,
-              onSaved: (value) {
-                name = value;
-              },
+
+              // onSaved: (value) {
+              //   name = value;
+              // },
             ),
           ),
           SizedBox(
@@ -104,10 +101,11 @@ class _editprofileState extends State<editprofile> {
           ),
           MaterialButton(
             onPressed: (() {
-              // final updatapr = FirebaseFirestore.instance
-              //     .collection('users')
-              //     .doc(FirebaseAuth.instance.currentUser!.uid);
-             
+              // _getdata();
+
+              _updata();
+              Navigator.pop(
+                  context, MaterialPageRoute(builder: (context) => homeapp()));
             }),
             child: Text('Lưu'),
             color: Colors.deepPurple[200],

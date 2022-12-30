@@ -1,15 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:phan4_bai1/chudechoi/chonchude.dart';
-import 'package:phan4_bai1/components/bai_hang.dart';
-import 'package:phan4_bai1/components/bai_thuong.dart';
+
 
 import 'package:phan4_bai1/components/menu.dart';
 import 'package:phan4_bai1/components/quenmk.dart';
 
 import 'package:phan4_bai1/components/shopeee.dart';
-import 'package:phan4_bai1/components/thang_hang.dart';
-import 'package:phan4_bai1/components/thang_thuong.dart';
+
 
 import 'package:phan4_bai1/home.dart';
 import 'scerrns/setting.dart';

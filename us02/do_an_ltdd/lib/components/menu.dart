@@ -21,10 +21,10 @@ class _MenuStatr extends State<Menu> {
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Colors.blueGrey,
             ),
             child: Text(
-              'Logo trang chủ ',
+              'ABC XYZ',
               style: TextStyle(color: Colors.white),
             ),
           ),

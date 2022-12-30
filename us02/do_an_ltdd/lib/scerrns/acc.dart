@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:phan4_bai1/components/menu.dart';
 
+import 'package:phan4_bai1/components/trangcanhan/trangcanhan.dart';
+
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
 
@@ -16,7 +18,7 @@ class _AccountScreenState extends State<AccountScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Tài Khoản')),
       drawer: Menu(),
-      body: Text('Account Screen '),
+      body: trangcanhan(),
     );
   }
 }
