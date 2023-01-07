@@ -85,3 +85,25 @@ class Question {
   }
 }
 
+// List<Question> question = [
+//   Question(
+//       id: '1',
+//       question: 'What is the question',
+//       answers: ['1', '2', '3', '4'],
+//       correctAnswer: '3'),
+//   Question(
+//       id: '2',
+//       question: 'What is the apenso',
+//       answers: ['1', '2', '3', '4'],
+//       correctAnswer: '2'),
+//   Question(
+//       id: '3',
+//       question: 'What is the hahaha',
+//       answers: ['1', '2', '3', '4'],
+//       correctAnswer: '4'),
+//   Question(
+//       id: '4',
+//       question: 'What is the hrhehs',
+//       answers: ['1', '2', '3', '4'],
+//       correctAnswer: '1'),
+// ];

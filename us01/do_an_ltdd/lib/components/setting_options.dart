@@ -1,18 +1,36 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
-Widget Setting_Options() {
-  return Scaffold(
+import 'dart:ui';
+
+class Setting_Options extends StatefulWidget {
+  const Setting_Options({super.key});
+
+  @override
+  State<Setting_Options> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<Setting_Options> {
+  bool isPlaying = false;
+  double value = 0;
+  final player = AudioPlayer();
+  Duration? duration;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       backgroundColor: Colors.blueGrey,
       body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/bai.png'),
-              fit: BoxFit.cover,
-            ),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/bai.png'),
+            fit: BoxFit.cover,
           ),
-          child: Center(
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
               SizedBox(
                 height: 50,
               ),
@@ -50,7 +68,9 @@ Widget Setting_Options() {
                         const Text('Âm thanh'),
                       ],
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      player.play('nhac.mp3');
+                    },
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
                             Colors.blueAccent)),
@@ -62,78 +82,21 @@ Widget Setting_Options() {
                   child: ElevatedButton(
                     child: Row(
                       children: [
-                        Icon(Icons.store),
-                        const Text('Chợ'),
+                        const Icon(Icons.music_note),
+                        const Text('tắc Âm thanh'),
                       ],
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      player.pause();
+                    },
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
                             Colors.blueAccent)),
                   )),
-              Container(
-                  width: 200,
-                  height: 50,
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: ElevatedButton(
-                    child: Row(
-                      children: [
-                        Icon(Icons.thumb_up),
-                        const Text('Đánh giá'),
-                      ],
-                    ),
-                    onPressed: () {},
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.blueAccent)),
-                  )),
-              Container(
-                  width: 200,
-                  height: 50,
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: ElevatedButton(
-                    child: Row(
-                      children: [
-                        Icon(Icons.mode_comment),
-                        Text(
-                          'Phản hồi',
-                        ),
-                      ],
-                    ),
-                    onPressed: () {},
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.blueAccent)),
-                  )),
-              Container(
-                  width: 200,
-                  height: 50,
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: ElevatedButton(
-                    child: Row(
-                      children: [
-                        const Text('Điều khoản dịch vụ'),
-                      ],
-                    ),
-                    onPressed: () {},
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.blueAccent)),
-                  )),
-              Container(
-                  width: 200,
-                  height: 50,
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: ElevatedButton(
-                    child: Text(
-                      'Chính sách quyền riêng tư',
-                      maxLines: 3,
-                    ),
-                    onPressed: () {},
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.blueAccent)),
-                  )),
-            ]),
-          )));
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

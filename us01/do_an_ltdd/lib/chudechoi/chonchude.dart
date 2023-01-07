@@ -69,7 +69,7 @@ class _chonchudeState extends State<chonchude> {
               height: 20,
             ),
             ActionButton(
-                title: 'xã hội',
+                title: 'Vật lý',
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => choidonxahoi()),

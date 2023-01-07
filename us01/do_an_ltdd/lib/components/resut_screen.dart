@@ -47,7 +47,7 @@ class _ResultScreenState extends State<ResultScreen> {
               height: 300,
             ),
             Text(
-              'Result: ${widget.score} / 10',
+              'Result: ${widget.score} / 5',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 40,

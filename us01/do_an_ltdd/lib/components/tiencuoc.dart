@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:phan4_bai1/components/doikhang.dart';
+import 'package:phan4_bai1/components/doikhan.dart';
 
 class Tiencuoc extends StatefulWidget {
   const Tiencuoc({super.key});

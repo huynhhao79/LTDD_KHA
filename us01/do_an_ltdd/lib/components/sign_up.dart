@@ -1,9 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:phan4_bai1/components/login.dart';
-import '../models/user_provider.dart';
-import '../models/user_obj.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -15,77 +16,97 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final email = TextEditingController();
   final password = TextEditingController();
-  final fullname = TextEditingController();
-  final confirm = TextEditingController();
+  final confimpassword = TextEditingController();
   final _auth = FirebaseAuth.instance;
-  List<user> thongtinEmail = [];
-  bool isEmailExist = false;
-  CollectionReference thongTin = FirebaseFirestore.instance.collection('users');
+  final name = TextEditingController();
+  int score = 0;
+  int exp = 0;
+  int mony = 0;
   @override
   void dispose() {
     email.dispose();
     password.dispose();
     super.dispose();
   }
-   void load() async {
-    final data = await userProvider.getEmail();
-    if (!mounted) return;
-    setState(() {
-      thongtinEmail = data;
-    });
-  }
-   Future<void> addUser() {
-    return thongTin
-        .add({
-          'email': email.text.trim(),
-          'password': password.text.trim(),
-          'name': fullname.text.trim(),
-          'rank': 0,
-          'exp': 0,
-          'money':0
-        })
-        .then((value) => Navigator.pop(context, 'Đăng kí thành công'))
-        .catchError(
-            (error) => Navigator.pop(context, 'Đăng kí thất bại $error'));
-  }
-   Future signUp() async {
-    // kiểm tra dữ liệu trên giao diện
-    if (email.text.trim() == '' ||
-        password.text.trim() == '' ||
-        fullname.text.trim() == '' ||
-       confirm.text.trim() == '' ) {
-      final snackBar = SnackBar(content: Text('Chưa điền thông tin tài khoản'));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    } else if (password.text.trim().length < 0) {
-      final snackBar =
-          SnackBar(content: Text('Mật khẩu phải nhập ít nhất 6 ký tự'));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    } else {
-      //chạy vòng lập kt email trùng
-       for (var i = 0; i < thongtinEmail.length; i++) {
-        if (email.text.trim() == thongtinEmail[i].email) {
-          isEmailExist = true;
-        }
-      }
-      if (isEmailExist == true) {
-        final snackBar = SnackBar(content: Text('Email đã được sử dụng'));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        isEmailExist = false;
-      } else {
-        try {
-          addUser();
-          final newUser = await _auth.createUserWithEmailAndPassword(
-              email: email.text.trim(),
-              password: password.text.trim());
-        } catch (e) {
-          final snackBar =
-              SnackBar(content: Text('Thông tin tài khoản không hợp lệ'));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
-      }
-    }
-   }
 
+  @override
+  void initState() {
+    // _updateHighscore();
+    super.initState();
+  }
+
+  Future signUp() async {
+    if (passwordcomfim()) {
+      try {
+        await _auth.createUserWithEmailAndPassword(
+          email: email.text.trim(),
+          password: password.text.trim(),
+        );
+      } on FirebaseAuthException catch (e) {
+        print(e);
+      }
+
+      //
+
+      //  addUser(email.text.trim(), name.text.trim(), score);
+    }
+  }
+
+  // Future addUser(
+  //   String email,
+  //   String name,
+  //   int score,
+  // ) async {
+  //   await FirebaseFirestore.instance.collection('users').doc().update({
+  //     'email': email,
+  //     'name': name,
+  //     'score': score,
+  //   });
+  // }
+  // Future _updata() async {
+  //   await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(FirebaseAuth.instance.currentUser!.uid)
+  //       .update({
+  //     'name': name.text.trim(),
+  //     'email': email.text.trim(),
+  //     'score': score
+  //   });
+  // }
+
+  // Future<void> _updateHighscore() async {
+  //   final authUser = FirebaseAuth.instance.currentUser;
+
+  //   if (authUser == null) return;
+
+  //   final userRef =
+  //       FirebaseFirestore.instance.collection('users').doc(authUser.uid);
+
+  //   final userDoc = await userRef.get();
+  //   if (userDoc.exists) {
+  //     final user = userDoc.data();
+  //     if (user == null) {
+  //       return;
+  //     }
+  //     userRef.update({'name': name.text.trim(), 'email': email.text.trim()});
+  //     return;
+  //   }
+
+  //   userRef.set({
+  //     'email': authUser.email,
+  //     'mony': mony,
+  //     'exp': exp,
+  //     'score': score,
+  //     'name': name.text.trim(),
+  //   });
+  // }
+
+  bool passwordcomfim() {
+    if (password.text.trim() == confimpassword.text.trim()) {
+      return true;
+    } else
+      return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,21 +126,23 @@ class _SignUpState extends State<SignUp> {
             SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
-              child: TextField(
-                controller: fullname,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Họ và tên',
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
+            //   child: TextField(
+            //     controller: name,
+            //     decoration: InputDecoration(
+            //       // icon: Icon(Icons.account_box),
+            //       border: OutlineInputBorder(),
+            //       labelText: 'Họ và tên',
+            //     ),
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
               child: TextField(
                 controller: email,
                 decoration: InputDecoration(
+                  //   icon: Icon(Icons.email),
                   prefix: Icon(Icons.mail),
                   border: OutlineInputBorder(),
                   labelText: 'Email',
@@ -134,7 +157,7 @@ class _SignUpState extends State<SignUp> {
                 controller: password,
                 obscureText: true,
                 decoration: const InputDecoration(
-
+                  //   icon: Icon(Icons.key),
                   border: OutlineInputBorder(),
                   prefix: Icon(Icons.key),
                   labelText: 'Mật khẩu',
@@ -144,13 +167,13 @@ class _SignUpState extends State<SignUp> {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
               child: TextField(
-                controller: confirm,
+                controller: confimpassword,
                 obscureText: true,
                 decoration: const InputDecoration(
-
+                  //   icon: Icon(Icons.key),
                   border: OutlineInputBorder(),
                   prefix: Icon(Icons.key),
-                  labelText: 'xác nhận Mật khẩu',
+                  labelText: 'Xác nhận Mật khẩu',
                 ),
               ),
             ),
@@ -163,7 +186,13 @@ class _SignUpState extends State<SignUp> {
                     child: ElevatedButton(
                       child: const Text('Xác nhận'),
                       onPressed: () {
-                      
+                        signUp();
+                        //  _updata();
+                        //  _updateHighscore();
+                        if (passwordcomfim()) {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Login()));
+                        }
                       },
                       style: ButtonStyle(
                           backgroundColor:

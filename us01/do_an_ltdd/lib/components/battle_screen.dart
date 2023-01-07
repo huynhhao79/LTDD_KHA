@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phan4_bai1/components/doikhang.dart';
+import 'package:phan4_bai1/components/doikhan.dart';
 import 'package:phan4_bai1/components/tiencuoc.dart';
 
 class Battle_Sceen extends StatefulWidget {

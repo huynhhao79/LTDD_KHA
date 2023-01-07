@@ -4,7 +4,7 @@ import 'package:phan4_bai1/chudechoi/chonchude.dart';
 import 'package:phan4_bai1/chudechoi/toanhoc/choidon.dart';
 import 'package:phan4_bai1/components/battle_screen.dart';
 
-import 'package:phan4_bai1/components/doikhang.dart';
+import 'package:phan4_bai1/components/doikhan.dart';
 
 class Choose_Mode extends StatefulWidget {
   const Choose_Mode({super.key});

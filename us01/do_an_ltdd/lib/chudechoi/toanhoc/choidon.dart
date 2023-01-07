@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -22,7 +23,87 @@ class choidon extends StatefulWidget {
 }
 
 class _choidonState extends State<choidon> {
-  bool isChecked = true;
+  String name = '';
+  String email = '';
+  int mony = 0;
+  String? image = '';
+  Future _getdata() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((snapshot) async {
+      if (snapshot.exists) {
+        setState(() {
+          name = snapshot.data()!["name"];
+          email = snapshot.data()!["email"];
+          mony = snapshot.data()!["mony"];
+          image = snapshot.data()!["photoUrl"];
+        });
+      }
+    });
+  }
+
+  int den = 0;
+  int tim = 0;
+  Future _getshop() async {
+    await FirebaseFirestore.instance
+        .collection('shop')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((snapshot) async {
+      if (snapshot.exists) {
+        setState(() {
+          // name = snapshot.data()!["name"];
+          den = snapshot.data()!["den"];
+          tim = snapshot.data()!["tim"];
+        });
+      }
+    });
+  }
+
+  int man1 = 0;
+  int man2 = 0;
+  int man3 = 0;
+  int man4 = 0;
+  int man5 = 0;
+  int man6 = 0;
+  int man7 = 0;
+  int man8 = 0;
+  int man9 = 0;
+  int man10 = 0;
+  Future _getdatadeim() async {
+    await FirebaseFirestore.instance
+        .collection('toan')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((snapshot) async {
+      if (snapshot.exists) {
+        setState(() {
+          man1 = snapshot.data()!["man1"];
+          man2 = snapshot.data()!["man2"];
+          man3 = snapshot.data()!["man3"];
+          man4 = snapshot.data()!["man4"];
+          man5 = snapshot.data()!["man5"];
+          man6 = snapshot.data()!["man6"];
+          man7 = snapshot.data()!["man7"];
+          man8 = snapshot.data()!["man8"];
+          man9 = snapshot.data()!["man9"];
+          man10 = snapshot.data()!["man10"];
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _getdata();
+    _getshop();
+    _getdatadeim();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +151,7 @@ class _choidonState extends State<choidon> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 5.0, top: 5),
-                        child: Text('220'),
+                        child: Text(mony.toString()),
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 5.0),
@@ -89,23 +170,6 @@ class _choidonState extends State<choidon> {
                   ),
                 ),
               ),
-              // Padding(
-              //   padding: EdgeInsets.only(left: 20, top: 0),
-              //   child: Padding(
-              //     padding: EdgeInsets.all(0),
-              //     child: ElevatedButton(
-              //       style: ButtonStyle(
-              //         backgroundColor: MaterialStatePropertyAll<Color>(
-              //           Colors.white,
-              //         ),
-              //       ),
-              //       onPressed: () => {},
-              //       child: Padding(
-              //           padding: EdgeInsets.all(0),
-              //           child: Image.asset('assets/1.png')),
-              //     ),
-              //   ),
-              // ),
               Padding(
                 padding: EdgeInsets.only(left: 50),
                 child: Container(
@@ -124,16 +188,12 @@ class _choidonState extends State<choidon> {
                       Padding(
                         padding: EdgeInsets.only(left: 0, top: 0),
                         child: Image(
-                          image: AssetImage('assets/tim.png'),
+                          image: AssetImage('assets/den.png'),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Text('1'),
-                      ),
-                      Padding(
                         padding: EdgeInsets.only(left: 5.0, top: 5),
-                        child: Text('03:20'),
+                        child: Text(den.toString()),
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 0.0),
@@ -229,7 +289,16 @@ class _choidonState extends State<choidon> {
                                     ),
                                     child: Column(
                                       children: [
-                                        Text('Màn 1'),
+                                        Text('Màn 1',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
+                                        Text('điểm: ' + man1.toString() + '/5',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
                                       ],
                                     ),
                                   ),
@@ -271,7 +340,16 @@ class _choidonState extends State<choidon> {
                                     ),
                                     child: Column(
                                       children: [
-                                        Text('Màn 3'),
+                                        Text('Màn 3',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
+                                        Text('điểm: ' + man3.toString() + '/5',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
                                       ],
                                     ),
                                   ),
@@ -314,7 +392,16 @@ class _choidonState extends State<choidon> {
                                     ),
                                     child: Column(
                                       children: [
-                                        Text('Màn 5'),
+                                        Text('Màn 5',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
+                                        Text('điểm: ' + man5.toString() + '/5',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
                                       ],
                                     ),
                                   ),
@@ -356,7 +443,16 @@ class _choidonState extends State<choidon> {
                                     ),
                                     child: Column(
                                       children: [
-                                        Text('Màn 7'),
+                                        Text('Màn 7',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
+                                        Text('điểm: ' + man7.toString() + '/5',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
                                       ],
                                     ),
                                   ),
@@ -398,7 +494,16 @@ class _choidonState extends State<choidon> {
                                     ),
                                     child: Column(
                                       children: [
-                                        Text('Màn 9'),
+                                        Text('Màn 9',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
+                                        Text('điểm: ' + man9.toString() + '/5',
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25.0)),
                                       ],
                                     ),
                                   ),
@@ -446,7 +551,17 @@ class _choidonState extends State<choidon> {
                                       ),
                                       child: Column(
                                         children: [
-                                          Text('Màn 2'),
+                                          Text('Màn 2',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
+                                          Text(
+                                              'điểm: ' + man2.toString() + '/5',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
                                         ],
                                       ),
                                     ),
@@ -488,7 +603,17 @@ class _choidonState extends State<choidon> {
                                       ),
                                       child: Column(
                                         children: [
-                                          Text('Màn 4'),
+                                          Text('Màn 4',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
+                                          Text(
+                                              'điểm: ' + man4.toString() + '/5',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
                                         ],
                                       ),
                                     ),
@@ -531,7 +656,17 @@ class _choidonState extends State<choidon> {
                                       ),
                                       child: Column(
                                         children: [
-                                          Text('Màn 6'),
+                                          Text('Màn 6',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
+                                          Text(
+                                              'điểm: ' + man6.toString() + '/5',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
                                         ],
                                       ),
                                     ),
@@ -573,7 +708,17 @@ class _choidonState extends State<choidon> {
                                       ),
                                       child: Column(
                                         children: [
-                                          Text('Màn 8'),
+                                          Text('Màn 8',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
+                                          Text(
+                                              'điểm: ' + man8.toString() + '/5',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
                                         ],
                                       ),
                                     ),
@@ -615,7 +760,19 @@ class _choidonState extends State<choidon> {
                                       ),
                                       child: Column(
                                         children: [
-                                          Text('Màn 10'),
+                                          Text('Màn 10',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
+                                          Text(
+                                              'điểm: ' +
+                                                  man10.toString() +
+                                                  '/5',
+                                              style: TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25.0)),
                                         ],
                                       ),
                                     ),

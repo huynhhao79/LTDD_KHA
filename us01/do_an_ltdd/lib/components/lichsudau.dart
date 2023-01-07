@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -10,6 +12,34 @@ class LichSuDau extends StatefulWidget {
 }
 
 class _LichSuDauState extends State<LichSuDau> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getdata();
+  }
+
+  String name = '';
+  String email = '';
+  int score = 0;
+  String ten = '';
+  Future _getdata() async {
+    await FirebaseFirestore.instance
+        .collection('history')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((snapshot) async {
+      if (snapshot.exists) {
+        setState(() {
+          name = snapshot.data()!["name"];
+          email = snapshot.data()!["email"];
+          score = snapshot.data()!["score"];
+          ten = snapshot.data()!["ten"];
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,328 +76,60 @@ class _LichSuDauState extends State<LichSuDau> {
                 ),
 
                 Padding(
-                  padding: EdgeInsets.only(left: 50, top: 30),
+                  padding: EdgeInsets.only(left: 40, top: 30),
                   child: Text(
                     "Lịch Sử Đấu ",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 5, top: 20),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 10,
-                    width: MediaQuery.of(context).size.width - 10,
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Colors.white),
-                      color: Color.fromARGB(255, 107, 108, 112),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(10.0),
-                        bottomLeft: Radius.circular(10.0),
-                        topLeft: Radius.circular(10.0),
-                        topRight: Radius.circular(10.0),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 0, bottom: 0),
-                              child: Text(
-                                "Đấu Hạng ",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
+                Expanded(
+                  child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection('history')
+                          .orderBy('score', descending: true)
+                          // .where('email', isEqualTo: email)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData)
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+
+                        final users = snapshot.data!.docs;
+
+                        return ListView.builder(
+                          itemBuilder: (context, index) {
+                            return Card(
+                              color: Colors.deepPurple[200],
+                              child: ListTile(
+                                // leading: Text(),
+                                title: Text(
+                                  users[index]['name'].toString(),
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
                                 ),
+
+                                trailing:
+                                    Text(users[index]['score'].toString()),
                               ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 10, bottom: 0),
-                              child: Text(
-                                "Trả lời đúng 6/10",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 30, bottom: 0),
-                              child: Text(
-                                "Chiến thắng",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 0, bottom: 0),
-                              child: Text(
-                                "19h30p 11/11/2022 ",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                            );
+                          },
+                          itemCount: users.length,
+                        );
+                      }),
+                )
                 //////////////////////////////////////
 
-                Padding(
-                  padding: EdgeInsets.only(left: 5, top: 20),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 10,
-                    width: MediaQuery.of(context).size.width - 10,
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Colors.white),
-                      color: Color.fromARGB(255, 107, 108, 112),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(10.0),
-                        bottomLeft: Radius.circular(10.0),
-                        topLeft: Radius.circular(10.0),
-                        topRight: Radius.circular(10.0),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 0, bottom: 0),
-                              child: Text(
-                                "Đấu Hạng ",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 10, bottom: 0),
-                              child: Text(
-                                "Trả lời đúng 6/10",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 30, bottom: 0),
-                              child: Text(
-                                "Chiến thắng",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 0, bottom: 0),
-                              child: Text(
-                                "22h30p 10/11/2022 ",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ), ///////////////////////////////////////////////////////////
-                Padding(
-                  padding: EdgeInsets.only(left: 5, top: 20),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 10,
-                    width: MediaQuery.of(context).size.width - 10,
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Colors.white),
-                      color: Color.fromARGB(255, 107, 108, 112),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(10.0),
-                        bottomLeft: Radius.circular(10.0),
-                        topLeft: Radius.circular(10.0),
-                        topRight: Radius.circular(10.0),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 0, bottom: 0),
-                              child: Text(
-                                "Đấu Hạng ",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 10, bottom: 0),
-                              child: Text(
-                                "Trả lời đúng 6/10",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 30, bottom: 0),
-                              child: Text(
-                                "Chiến thắng",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 0, bottom: 0),
-                              child: Text(
-                                "8h30p 5/11/2022 ",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                ///////////////////////////////////////////////////////////
+
                 /////////////////////////////////////////
                 ///
-                Padding(
-                  padding: EdgeInsets.only(left: 5, top: 20),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 10,
-                    width: MediaQuery.of(context).size.width - 10,
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Colors.white),
-                      color: Color.fromARGB(255, 107, 108, 112),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(10.0),
-                        bottomLeft: Radius.circular(10.0),
-                        topLeft: Radius.circular(10.0),
-                        topRight: Radius.circular(10.0),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 0, bottom: 0),
-                              child: Text(
-                                "Đấu Hạng ",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 10, bottom: 0),
-                              child: Text(
-                                "Trả lời đúng 3/10",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 30, bottom: 0),
-                              child: Text(
-                                "Thất bại",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 0, bottom: 0),
-                              child: Text(
-                                "1h30p 3/11/2022 ",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
               ],
             )));
   }

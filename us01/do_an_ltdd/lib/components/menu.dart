@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:phan4_bai1/home.dart';
-import '../screens/acc.dart';
-import '../screens/setting.dart';
+import '../scerrns/acc.dart';
+import '../scerrns/setting.dart';
 
 class Menu extends StatefulWidget {
   const Menu({Key? key}) : super(key: key);

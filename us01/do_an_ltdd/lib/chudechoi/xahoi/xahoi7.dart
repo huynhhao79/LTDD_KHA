@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:phan4_bai1/chudechoi/xahoi/choilaij/xh7.dart';
 import 'package:phan4_bai1/components/resut_screen.dart';
 
 import 'package:phan4_bai1/components/shopeee.dart';
@@ -35,7 +36,7 @@ class _xahoiState extends State<xahoi7> {
         crtimer -= 1;
       });
       if (crtimer == 0) {
-        _timer.cancel();
+        _timer.cancel();  return pushResultScreen(context);
       }
     });
   }
@@ -71,15 +72,15 @@ class _xahoiState extends State<xahoi7> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              height: 40,
+           child: SizedBox(
+              height: 20,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
                     LinearProgressIndicator(
-                      color: Colors.amber,
+                      color: Colors.blue,
                       value: crtimer / widget.totalTimer,
                     ),
                     Center(
@@ -169,7 +170,7 @@ class _xahoiState extends State<xahoi7> {
   void pushResultScreen(BuildContext context) {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => ResultScreen(
+        builder: (context) => xh7(
           questions: widget.questions,
           totalTime: widget.totalTimer,
           score: _score,
